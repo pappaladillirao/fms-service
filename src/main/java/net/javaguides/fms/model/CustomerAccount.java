@@ -17,6 +17,12 @@ public class CustomerAccount {
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Long Id;
 	
+	
+	@Column(name = "Account_number")
+	private String accountNumber;
+	
+	
+
 	@Column(name = "Given_amount")
 	private Double givenAmount;
 	
@@ -27,7 +33,7 @@ public class CustomerAccount {
 	private Double balanceAmount;
 	
 	@Column(name = "Total_Collected_amount")
-	private Double totalcollectedAmount;
+	private Double totalCollectedAmount;
 	
 	@Column(name = "CustomerId")
 	private Long customerId;
@@ -44,11 +50,24 @@ public class CustomerAccount {
 	@Column(name = "Collected_Duration")
 	private Long collectedDuration;
 	
-
-
-	
 	
 
+
+	public String getAccountNumber() {
+		return accountNumber;
+	}
+
+	public void setAccountNumber(String accountNumber) {
+		this.accountNumber = accountNumber;
+	}
+
+	public Double getTotalCollectedAmount() {
+		return totalCollectedAmount;
+	}
+
+	public void setTotalCollectedAmount(Double totalCollectedAmount) {
+		this.totalCollectedAmount = totalCollectedAmount;
+	}
 
 	public Long getInterestRate() {
 		return interestRate;
@@ -123,11 +142,11 @@ public class CustomerAccount {
 	}
 
 	public Double getTotalcollectedAmount() {
-		return totalcollectedAmount;
+		return totalCollectedAmount;
 	}
 
 	public void setTotalcollectedAmount(Double totalcollectedAmount) {
-		this.totalcollectedAmount = totalcollectedAmount;
+		this.totalCollectedAmount = totalcollectedAmount;
 	}
 
 	

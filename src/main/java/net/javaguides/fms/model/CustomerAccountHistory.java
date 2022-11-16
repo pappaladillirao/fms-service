@@ -17,6 +17,9 @@ public class CustomerAccountHistory {
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Long Id;
 	
+	@Column(name = "Customer_Account_Id")
+	private Long customerAccountId;
+	
 	@Column(name = "Transaction_Amount")
 	private Double transactionAmount;
 	
@@ -47,6 +50,15 @@ public class CustomerAccountHistory {
 	public void setCustomerId(Long customerId) {
 		this.customerId = customerId;
 	}
+	
+	public Long getCustomerAccountId() {
+		return customerAccountId;
+	}
+
+	public void setCustomerAccountId(Long customerAccountId) {
+		this.customerAccountId = customerAccountId;
+	}
+
 
 	public Long getId() {
 		return Id;

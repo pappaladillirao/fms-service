@@ -25,10 +25,10 @@ private long Id;
   private String address;
   
   @Column(name = "primary_contact")
-  private Long  primaryContact;
+  private String  primaryContact;
   
   @Column(name = "secondary_contact")
-  private Long secondaryContact;
+  private String secondaryContact;
   
   @Column(name = "customer_type")
   private String customerType;
@@ -81,19 +81,23 @@ public void setCustomerType(String customerType) {
 	this.customerType = customerType;
 }
 
-public Long getPrimaryContact() {
+
+
+
+
+public String getPrimaryContact() {
 	return primaryContact;
 }
 
-public void setPrimaryContact(Long primaryContact) {
+public void setPrimaryContact(String primaryContact) {
 	this.primaryContact = primaryContact;
 }
 
-public Long getSecondaryContact() {
+public String getSecondaryContact() {
 	return secondaryContact;
 }
 
-public void setSecondaryContact(Long secondaryContact) {
+public void setSecondaryContact(String secondaryContact) {
 	this.secondaryContact = secondaryContact;
 }
 

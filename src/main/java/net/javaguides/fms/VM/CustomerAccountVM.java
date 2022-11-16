@@ -2,6 +2,10 @@ package net.javaguides.fms.VM;
 
 public class CustomerAccountVM {
 	
+	private Long Id;	
+	
+	private String accountNumber;
+	
 	private Double givenAmount;
 	
 	private Double expectedAmount;
@@ -21,8 +25,15 @@ public class CustomerAccountVM {
 	private Long collectedDuration;
 	
 	
+
 	
-	
+	public String getAccountNumber() {
+		return accountNumber;
+	}
+
+	public void setAccountNumber(String accountNumber) {
+		this.accountNumber = accountNumber;
+	}
 
 	public Double getInterestAmount() {
 		return interestAmount;
@@ -96,6 +107,13 @@ public class CustomerAccountVM {
 
 	public void setInterestRate(Long interestRate) {
 		this.interestRate = interestRate;
+	}
+	public Long getId() {
+		return Id;
+	}
+
+	public void setId(Long id) {
+		Id = id;
 	}
 	
 

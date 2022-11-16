@@ -2,52 +2,59 @@ package net.javaguides.fms.controller;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
+import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 
 import net.javaguides.fms.VM.CustomerVM;
 import net.javaguides.fms.model.Customer;
+import net.javaguides.fms.model.CustomerAccount;
+import net.javaguides.fms.services.CustomerAccountservice;
 import net.javaguides.fms.services.Customerservice;
 
 @Controller
+@CrossOrigin("*")
 @RequestMapping("/api")
 public class CustomerController {
 	
 	@Autowired
 	private Customerservice customerService;
 	
+	
 
 	
-	@GetMapping("/customers")
+	@GetMapping("/customer")
 	public ResponseEntity<List<CustomerVM>> getCustomers() {
 		
 		List<Customer> customerList = customerService.findAll();
 		
-		List<CustomerVM> customers = new ArrayList<CustomerVM>();
+		List<CustomerVM> customerListVMs = new ArrayList<CustomerVM>();
 		customerList.stream().forEach(customer ->{
 			
-			CustomerVM customerData = new CustomerVM();
+			CustomerVM customerVM = new CustomerVM();
 			
-			customerData.setRegisterNumber(customer.getRegisterNumber());
-			customerData.setCustomerName(customer.getCustomerName());
-			customerData.setAddress(customer.getAddress());
-			customerData.setPrimaryContact(customer.getPrimaryContact());
-			customerData.setSecondaryContact(customer.getSecondaryContact());
-			customerData.setCustomerType(customer.getCustomerType());
-			customerData.setCustomerReview(customer.getCustomerReview());
-			customerData.setActive(customer.getActive());
+			customerVM.setRegisterNumber(customer.getRegisterNumber());
+			customerVM.setCustomerName(customer.getCustomerName());
+			customerVM.setAddress(customer.getAddress());
+			customerVM.setPrimaryContact(customer.getPrimaryContact());
+			customerVM.setSecondaryContact(customer.getSecondaryContact());
+			customerVM.setCustomerType(customer.getCustomerType());
+			customerVM.setCustomerReview(customer.getCustomerReview());
+			customerVM.setActive(customer.getActive());
+			customerVM.setId(customer.getId());
 			
 			
-			
-			customers.add(customerData);
+			customerListVMs.add(customerVM);
 		});
-		return ResponseEntity.ok().body(customers);
+		return ResponseEntity.ok().body(customerListVMs);
 	}
 	
 	@PostMapping("/customer")
@@ -72,6 +79,22 @@ public class CustomerController {
 		
     return  ResponseEntity.ok().body(result);
 	}
+	
+	@GetMapping("/customer/search/{contactNumber}")
+	public ResponseEntity<Customer> searchCustomer(@PathVariable String contactNumber){
+		
+		Optional<Customer> foundCustomer=customerService.findByPrimaryContact(contactNumber);
+		if(foundCustomer.isPresent()) {
+			return ResponseEntity.ok().body(foundCustomer.get());
+		}
+		return null;
+		
+	}
+	
+	
+	
+	
+	
 	
 	
 

@@ -7,6 +7,7 @@ import java.util.Optional;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
+import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -22,6 +23,7 @@ import net.javaguides.fms.services.Customerservice;
 
 
 @Controller
+@CrossOrigin("*")
 @RequestMapping("/api")
 public class CustomerAccounthistorycontroller {
 	
@@ -42,23 +44,25 @@ public class CustomerAccounthistorycontroller {
 		List<CustomerAccounthistoryVM> CustomerAccounthistory = new ArrayList<CustomerAccounthistoryVM>();
 		customerAccounthistoryList.stream().forEach(customerAccounthistory ->{
 			
-			CustomerAccounthistoryVM CustomerAccounthistoryData = new CustomerAccounthistoryVM();
+			CustomerAccounthistoryVM CustomerAccounthistoryvm = new CustomerAccounthistoryVM();
 			
-			CustomerAccounthistoryData.setTransactionAmount(customerAccounthistory.getTransactionAmount());
-			CustomerAccounthistoryData.setDate(customerAccounthistory.getDate());
-			CustomerAccounthistoryData.setCollectedBy(customerAccounthistory.getCollectedBy());
-			CustomerAccounthistoryData.setCustomerId(customerAccounthistory.getCustomerId());
-			CustomerAccounthistoryData.setReason(customerAccounthistory.getReason());
+			CustomerAccounthistoryvm.setTransactionAmount(customerAccounthistory.getTransactionAmount());
+			CustomerAccounthistoryvm.setDate(customerAccounthistory.getDate());
+			CustomerAccounthistoryvm.setCollectedBy(customerAccounthistory.getCollectedBy());
+			CustomerAccounthistoryvm.setCustomerId(customerAccounthistory.getCustomerId());
+			CustomerAccounthistoryvm.setCustomerAccountId(customerAccounthistory.getCustomerAccountId());
+			CustomerAccounthistoryvm.setReason(customerAccounthistory.getReason());
+			CustomerAccounthistoryvm.setId(customerAccounthistory.getId());
 
 			
-			CustomerAccounthistory.add(CustomerAccounthistoryData);
+			CustomerAccounthistory.add(CustomerAccounthistoryvm);
 			
 		});
 		return ResponseEntity.ok().body(CustomerAccounthistory);
 	}	
 			
 	
-	@PostMapping("/customeraccountmethod")
+	@PostMapping("/customeraccounthistory")
 	public ResponseEntity<CustomerAccountHistory> saveCustomerAccounthistory(@RequestBody CustomerAccounthistoryVM customerAccounthistoryVM) {
 		
 		CustomerAccountHistory customerAccounthistory = new CustomerAccountHistory();
@@ -68,6 +72,7 @@ public class CustomerAccounthistorycontroller {
 		customerAccounthistory.setCollectedBy(customerAccounthistoryVM.getCollectedBy());
 		customerAccounthistory.setCustomerId(customerAccounthistoryVM.getCustomerId());
 		customerAccounthistory.setReason(customerAccounthistoryVM.getReason());
+		customerAccounthistory.setCustomerAccountId(customerAccounthistoryVM.getCustomerAccountId());
 
 		
 		CustomerAccountHistory result = customerAccounthistoryservice.saveCustomerAccounthistory(customerAccounthistory);
@@ -103,7 +108,7 @@ public class CustomerAccounthistorycontroller {
 			(customerAccount.getCollectedDuration()==customerAccount.getExpectedDuration()) {
 				 review="GOOD";
 			}
-			else if (customerAccount.getCollectedDuration()>customerAccount.getExpectedDuration() && customerAccount.getCollectedDuration()<=customerAccount.getExpectedDuration()) {
+			else if (customerAccount.getCollectedDuration()>customerAccount.getExpectedDuration() && customerAccount.getCollectedDuration()<=customerAccount.getExpectedDuration()+10) {
 				 review="AVERAGE";
 			}
 			else {
@@ -116,7 +121,7 @@ public class CustomerAccounthistorycontroller {
 			customer.setActive(false);
 			customerservice.saveCustomer(customer);
 		}
-			}
+	}
 	   }
 		return  ResponseEntity.ok().body(result);
 	}

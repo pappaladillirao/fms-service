@@ -3,6 +3,8 @@ package net.javaguides.fms.VM;
 
 
 public class CustomerVM {
+	
+	private Long id;
 
      private String registerNumber;
      
@@ -10,9 +12,9 @@ public class CustomerVM {
 	  
 	  private String address;
 
-	  private Long primaryContact;
+	  private String primaryContact;
 	  
-	  private Long secondaryContact;
+	  private String secondaryContact;
 	  
 	  private String customerType;
 	  
@@ -50,19 +52,21 @@ public class CustomerVM {
 		this.customerType = customerType;
 	}
 
-	public Long getPrimaryContact() {
+
+
+	public String getPrimaryContact() {
 		return primaryContact;
 	}
 
-	public void setPrimaryContact(Long primaryContact) {
+	public void setPrimaryContact(String primaryContact) {
 		this.primaryContact = primaryContact;
 	}
 
-	public Long getSecondaryContact() {
+	public String getSecondaryContact() {
 		return secondaryContact;
 	}
 
-	public void setSecondaryContact(Long secondaryContact) {
+	public void setSecondaryContact(String secondaryContact) {
 		this.secondaryContact = secondaryContact;
 	}
 
@@ -72,6 +76,14 @@ public class CustomerVM {
 
 	public void setCustomerReview(String customerReview) {
 		this.customerReview = customerReview;
+	}
+
+	public Long getId() {
+		return id;
+	}
+
+	public void setId(Long id) {
+		this.id = id;
 	}
 
 	public boolean getActive() {

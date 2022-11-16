@@ -16,6 +16,8 @@ public interface Customerservice {
 
 	Optional<Customer> findById(Long customerId);
 
+   Optional<Customer> findByPrimaryContact(String contactNumber);
+
 	
 
 }

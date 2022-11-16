@@ -36,6 +36,14 @@ public class CustomerAccountserviceImpl implements CustomerAccountservice{
 		return customerAccountRepository.findByCustomerId(customerId);
 	}
 
+	@Override
+	public Optional<CustomerAccount> findBycustomerId(Long customerId) {
+		// TODO Auto-generated method stub
+		return customerAccountRepository.findByCustomerId(customerId);
+	}
+
+	
+
 	
 	
 

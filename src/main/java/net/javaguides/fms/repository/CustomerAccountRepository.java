@@ -11,6 +11,6 @@ import net.javaguides.fms.model.CustomerAccount;
 @Repository
 public interface CustomerAccountRepository extends JpaRepository<CustomerAccount,Long> {
 
-	Optional<CustomerAccount> findByCustomerId(Long customerId);
+  Optional<CustomerAccount> findByCustomerId(Long customerId);
 
 }

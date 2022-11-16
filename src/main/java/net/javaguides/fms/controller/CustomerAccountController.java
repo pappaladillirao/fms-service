@@ -7,7 +7,9 @@ import java.util.Optional;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
+import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -18,35 +20,37 @@ import net.javaguides.fms.services.CustomerAccountservice;
 
 
 @Controller
+@CrossOrigin("*")
 @RequestMapping("/api")
 public class CustomerAccountController {
 	
 	@Autowired
 	private CustomerAccountservice customerAccountservice;
 	
-	@GetMapping("/Customeraccount")
+	@GetMapping("/customeraccount")
 	public ResponseEntity<List <CustomerAccountVM>> getCustomerAccount() {
 		List<CustomerAccount> customerAccountList = customerAccountservice.findAll();
 
 		List<CustomerAccountVM> customeraccount = new ArrayList<CustomerAccountVM>();
 		customerAccountList.stream().forEach(customerAccount ->{
 			
-			CustomerAccountVM CustomerAccountData = new CustomerAccountVM();
-			
-			CustomerAccountData.setGivenAmount(customerAccount.getGivenAmount());
-			CustomerAccountData.setExpectedAmount(customerAccount.getExpectedAmount());
-			CustomerAccountData.setTotalCollectedAmount(customerAccount.getTotalcollectedAmount());
-			CustomerAccountData.setBalanceAmount(customerAccount.getBalanceAmount());
-			CustomerAccountData.setCustomerId(customerAccount.getCustomerId());
-			CustomerAccountData.setInterestRate(customerAccount.getInterestRate());
-			CustomerAccountData.setInterestAmount(customerAccount.getInterestAmount());
-			CustomerAccountData.setExpectedDuration(customerAccount.getExpectedDuration());
-			CustomerAccountData.setCollectedDuration(customerAccount.getCollectedDuration());
-			
+			CustomerAccountVM CustomerAccountvm = new CustomerAccountVM();
+			CustomerAccountvm.setAccountNumber(customerAccount.getAccountNumber());
+			CustomerAccountvm.setGivenAmount(customerAccount.getGivenAmount());
+			CustomerAccountvm.setExpectedAmount(customerAccount.getExpectedAmount());
+			CustomerAccountvm.setTotalCollectedAmount(customerAccount.getTotalcollectedAmount());
+			CustomerAccountvm.setBalanceAmount(customerAccount.getBalanceAmount());
+			CustomerAccountvm.setCustomerId(customerAccount.getCustomerId());
+			CustomerAccountvm.setInterestRate(customerAccount.getInterestRate());
+			CustomerAccountvm.setInterestAmount(customerAccount.getInterestAmount());
+			CustomerAccountvm.setExpectedDuration(customerAccount.getExpectedDuration());
+			CustomerAccountvm.setCollectedDuration(customerAccount.getCollectedDuration());
+			CustomerAccountvm.setId(customerAccount.getId());
+	
 
 			
 			
-			customeraccount.add(CustomerAccountData);
+			customeraccount.add(CustomerAccountvm);
 			
 			
 		});
@@ -67,7 +71,7 @@ public class CustomerAccountController {
 		customerAccount.setInterestAmount(customerAccountVM.getInterestAmount());
 		customerAccount.setExpectedDuration(customerAccountVM.getExpectedDuration());
 		customerAccount.setCollectedDuration(customerAccountVM.getCollectedDuration());
-		
+		customerAccount.setAccountNumber(customerAccountVM.getAccountNumber());
 
 		
 		
@@ -79,6 +83,18 @@ public class CustomerAccountController {
 	    return  ResponseEntity.ok().body(result);
 		
 		
+	}
+	
+
+	@GetMapping("/customeraccount/search/{customerId}")
+	public ResponseEntity<CustomerAccount> SearchCustomer(@PathVariable Long customerId){
+		
+		Optional<CustomerAccount> foundcustomerId=customerAccountservice.findBycustomerId(customerId);
+		if(foundcustomerId.isPresent()){
+			return ResponseEntity.ok().body(foundcustomerId.get());
+			
+		}
+		return null;
 	}
 	
 

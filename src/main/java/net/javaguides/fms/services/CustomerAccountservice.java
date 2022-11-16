@@ -13,6 +13,10 @@ public interface CustomerAccountservice {
 
 	Optional<CustomerAccount> findCustomerByCustomerId(Long customerId);
 
+	
+
+	Optional<CustomerAccount> findBycustomerId(Long customerId);
+
 
 
 }
