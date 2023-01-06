@@ -61,6 +61,9 @@ public class CustomerController {
 	public ResponseEntity<Customer> saveCustomer(@RequestBody CustomerVM customerVM) {
 		
 		Customer customer = new Customer();
+		if(customerVM.getId()!= null&&customerVM.getId()!=0) {
+			customer.setId(customerVM.getId());
+		}
 		customer.setRegisterNumber(customerVM.getRegisterNumber());
 		customer.setCustomerName(customerVM.getCustomerName());
 		customer.setAddress(customerVM.getAddress());
@@ -91,10 +94,19 @@ public class CustomerController {
 		
 	}
 	
+	@GetMapping("/customer/{id}")
+	public ResponseEntity<Customer> searchCustomer(@PathVariable Long id){
+		
+		Optional<Customer> customerView=customerService.findById(id);
+		
+		if(customerView.isPresent()) {
+			return ResponseEntity.ok().body(customerView.get());
+		}
+		return null;
+		
+	}
 	
-	
-	
-	
+
 	
 	
 

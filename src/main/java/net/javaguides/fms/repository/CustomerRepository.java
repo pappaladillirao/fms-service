@@ -12,4 +12,8 @@ public interface CustomerRepository extends JpaRepository<Customer,Long>{
 
 	Optional<Customer> findByPrimaryContactAndActiveTrue(String contactNumber);
 
+	Optional<Customer> findByPrimaryContact(String contactNumber);
+
+
+
 }

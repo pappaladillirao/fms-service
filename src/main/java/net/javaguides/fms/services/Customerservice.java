@@ -14,9 +14,15 @@ public interface Customerservice {
 
 	List<Customer> findAll();
 
-	Optional<Customer> findById(Long customerId);
+	Optional<Customer> findById(Long id);
 
-   Optional<Customer> findByPrimaryContact(String contactNumber);
+	Optional<Customer> findByPrimaryContact(String contactNumber);
+
+  
+
+   
+
+
 
 	
 

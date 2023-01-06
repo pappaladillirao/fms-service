@@ -42,11 +42,28 @@ public class Customerserviceimpl implements Customerservice{
 	}
 
 
+	
+
+
+	
+
+
 	@Override
 	public Optional<Customer> findByPrimaryContact(String contactNumber) {
 		// TODO Auto-generated method stub
-		return customerRepository.findByPrimaryContactAndActiveTrue(contactNumber);
+		return customerRepository.findByPrimaryContact(contactNumber);
 	}
+
+
+	
+
+
+	
+
+
+
+
+
 
 	
 

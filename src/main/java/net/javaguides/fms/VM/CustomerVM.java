@@ -4,9 +4,9 @@ package net.javaguides.fms.VM;
 
 public class CustomerVM {
 	
-	private Long id;
+	  private Long Id;
 
-     private String registerNumber;
+      private String registerNumber;
      
 	  private String customerName;
 	  
@@ -79,11 +79,11 @@ public class CustomerVM {
 	}
 
 	public Long getId() {
-		return id;
+		return Id;
 	}
 
 	public void setId(Long id) {
-		this.id = id;
+		this.Id = id;
 	}
 
 	public boolean getActive() {
